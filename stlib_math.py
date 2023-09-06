@@ -1,6 +1,9 @@
 import math
-# Функции относящиеся к теории чисел
-# https://docs-python.ru/standart-library/modul-math-python/funktsii-teorii-chisel-modulja-math/
+''' 
+модуль math в Python
+Часть - Примеры для функций, относящихся к теории чисел
+https://docs-python.ru/standart-library/modul-math-python/funktsii-teorii-chisel-modulja-math/
+'''
 
 def thetest_gcd():
 # возвращает наибольший общий делитель указанных целочисленных аргументов *integers.
@@ -10,15 +13,71 @@ def thetest_gcd():
     print(f'наибольший общий делитель {math.gcd(16, 24, 15)=}')
     print(f'наибольший общий делитель {math.gcd(16, 24, 150)=}')
 
-def reverse_frexp(m, e)->float:
-    return m*(2**e)
-def thetest_frexp():
-    # Функция math.frexp() возвращает кортеж из двух чисел (m, e) таких что x == m*2**e.
-    (m,e) = math.frexp(150)
-    print(f'мантисса и показател степени 2 {math.frexp(150)=}  {reverse_frexp(m, e)=}')
 
+def thetest_lcm():
+    # возвращает наименьшее общее кратное указанных целочисленных аргументов
+    # Наименьшее общее кратное для нескольких чисел — это наименьшее натуральное число,
+    # которое делится на каждое из этих чисел
+    # Непонятно
+    print(f'наименьшее общее кратное {math.lcm(16, 24, 15)=}')
+    print(f'наименьшее общее кратное {math.lcm(16, 24, 150)=}')
+    print(f'наименьшее общее кратное {math.lcm(16, 24, 80)=}')
+    print(f'наименьшее общее кратное {math.lcm(16, 64, 80)=}')
+    print(f'наименьшее общее кратное {math.lcm(16, 20)=}')
+    print(f'наименьшее общее кратное {math.lcm(20, 10)=}')
+
+
+def thetest_frexp_ldexp():
+    # Функция math.frexp() возвращает кортеж из двух чисел (m, e) таких что x == m*2**e.
+    # Число m принадлежит к типу float и всегда является таким, что 0.5 <= abs(m) < 1,
+    # даже для тех случаев, когда значением x является произвольная степень двойки.
+    # Число e всегда целое число int:
+    # Если x равен 0, то будет возвращено (0.0, 0)
+    # Функция math.ldexp() возвращает значение равное x*2**i,
+    # т.е. является обратной к функции math.frexp().
+    (m,e) = math.frexp(150)
+    print(f'мантисса и показатель степени 2 {math.frexp(150)=}  {math.ldexp(m, e)=}')
+    (m,e) = math.frexp(8)
+    print(f'мантисса и показатель степени 2 {math.frexp(8)=}  {math.ldexp(m, e)=}')
+
+def thetest_modf():
+    # Функция возвращает кортеж из двух чисел (f, w)
+    # где f это дробная, а w - целая часть числа x.
+    print(f'дробная и целая части числа {math.modf(8)=}')
+    print(f'дробная и целая части числа {math.modf(8.3)=}')
+
+def thetest_fsum():
+    # Функция math.fsum() возвращает точную сумму значений в итерируемой последовательности iterable.
+    # Если вам нужны точные арифметические операции с десятичными дробями,
+    # то воспользуйтесь модулем decimal.
+    lst = [.1, .1, .1, .1, .1, .1, .1, .1, .1, .1]
+    print(f'Сумма {sum(lst)=}')
+    print(f'Сумма {math.fsum(lst)=}')
+
+def thetest_isclose():
+    # Функция math.isclose() возвращает True если в пределах указанной точности,
+    # числа a и b близки настолько, что их можно считать равными.
+    # math.isclose(a, b, *, rel_tol=1e-09, abs_tol=0.0)
+    x = 7
+    y = 7.000000000000001
+    print(f'x == y = {x == y}')
+    print(f'{math.isclose(x, y)=}')
+
+def thetest_nextafter():
+    # возвращает следующее значение float после x по направлению к y.
+    # Если x равно y, то функция возвращает y.
+    dat9 = 9; dat10 = 10
+    for i in range(10):
+        dat = dat9 + i*0.1
+        print(f'{dat = }  {math.nextafter(dat, dat10)=}')
+
+def thetest_ulp():
+    # Функция math.isclose() возвращает значение наименьшего значащего бита числа float x.
+    # Или - машинный нуль для каждого числа
+    dat9 = 0.01
+    for i in range(10):
+        dat = dat9*(10**i)
+        print(f'{dat = }  {math.ulp(dat)=}')
 
 if __name__ == "__main__":
-    # thetest_gcd()
-    # print(math.ulp(0.1))
-    thetest_frexp()
+    thetest_ulp()
