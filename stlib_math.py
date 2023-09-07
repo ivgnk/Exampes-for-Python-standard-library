@@ -1,83 +1,112 @@
 import math
+import matplotlib.pyplot as plt
+import numpy as np
+from copy import deepcopy
 ''' 
 модуль math в Python
-Часть - Примеры для функций, относящихся к теории чисел
-https://docs-python.ru/standart-library/modul-math-python/funktsii-teorii-chisel-modulja-math/
+1) Функции округления чисел
+https://docs-python.ru/standart-library/modul-math-python/funktsii-okruglenija-chisel-modulja-math/
+Функция math.trunc() отбрасывает дробную часть числа x. Результат будет целым числом.
+Функция math.floor() возвращает x округленное в меньшую сторону до ближайшего целого.
+Функция math.ceil() возвращает x округленное в большую сторону до ближайшего целого.
+
+2) Степенные и логарифмические функции модуля math
+https://docs-python.ru/standart-library/modul-math-python/stepennye-logarifmicheskie-funktsii/
+Функция math.pow() возвращает x в степени y.
+Функция math.sqrt() возвращает квадратный корень числа x.
+Функция math.cbrt() возвращает кубический корень из числа x.
+Функция math.log(x[, base]) возвращает логарифм числа x по основанию base. 
+Если аргумент base не указан, то возвращается натуральный логарифм числа x.
+Функция math.log(x, base) эквивалентна выражению log(x)/log(base)
+Функция math.log10() возвращает десятичный логарифм числа x, 
+вычисление которого происходит немного точнее, чем math.log(x, 10)
+Функция math.log2() возвращает двоичный логарифм числа x, 
+вычисление которого происходит немного точнее, чем math.log(x, 2).
+Функция math.log1p() возвращает натуральный логарифм от x + 1 , 
+значение которого расчитывается более точно, особенно для небольших чисел.
+Функция math.exp() возвращает e, возведенное в степень x, 
+где e=2.718281… - основание натуральных логарифмов. 
+Функция считает более точно, чем math.e ** x или math.pow(math.e, x)
+Функция math.exp2() возвращает 2, возведенное в степень x.
+Функция math.expm1() возвращает e**x - 1, 
+которое вычисляется значительно точнее, чем math.exp(x) - 1, 
+особенно для небольших чисел x.
+
+3) тригонометрические функции модуля math
+https://docs-python.ru/standart-library/modul-math-python/trigonometricheskie-funktsii-modulja-math/
+Функция math.sin();
+Функция math.cos();
+Функция math.tan();
+Функция math.asin();
+Функция math.acos();
+Функция math.atan();
+Функция math.atan2();
+Функция math.hypot() возвращает евклидову норму, sqrt(sum(x**2 for x in coordinates)). 
+Это длина вектора от начала координат до точки, заданной координатами.
+Для двумерной точки (x, y) это эквивалентно вычислению гипотенузы 
+прямоугольного треугольника с использованием теоремы Пифагора sqrt(x*x + y*y).
+Изменено в Python 3.8: Добавлена поддержка n-мерных точек. 
+Раньше поддерживался только двумерный случай.
+
+4) Функции преобразование меры углов модуля math в Python
+https://docs-python.ru/standart-library/modul-math-python/funktsii-preobrazovanie-mery-uglov-modulja-math/
+Функция math.degrees() преобразует угол x из радиан в градусы.
+Функция math.radians() преобразует угол x из градусов в радианы.
+
+5) Гиперболические функции модуля math
+https://docs-python.ru/standart-library/modul-math-python/giperbolicheskie-funktsii-modulja-math/
+Функция math.sinh(),
+Функция math.cosh(),
+Функция math.tanh(),
+Функция math.asinh(),
+Функция math.acosh(),
+Функция math.atanh().
+
+6) Константы и специальные значения модуля math
+https://docs-python.ru/standart-library/modul-math-python/konstanty-spetsialnye-znachenija-modulja-math/
+Константа Рi,
+Константа e,
+Константа Inf,
+Константа NaN,
+Функция math.isinf() возвращает True в случаях, 
+когда x является отрицательной или положительной бесконечностью, 
+иначе возвращает False.
+Функция math.isnan() возвращает True если x является nan, иначе возвращает False.
+Функция math.isfinite() возвращает False если x является либо nan, 
+либо inf или -inf, во всех остальных случаях возвращается True.
+
+7) Специальные функции модуля math
+https://docs-python.ru/standart-library/modul-math-python/spetsialnye-funktsii-modulja-math/
+Функция math.erf() возвращает значение функции ошибок от указанного значения аргумента x.
+Функция math.erfc() возвращает значение дополнительной функции ошибок от указанного значения аргумента x. 
+Эквивалентна команде 1 - erf(x).
+Функция math.gamma() возвращает значение гамма функции от указанного аргумента x.
+Функция math.lgamma() возвращает значение натурального логарифма от модуля гамма функции при заданном значении 
+аргумента x. Данная функция эквивалентна выражению math.log(abs(math.gamma(x))).
 '''
 
-def thetest_gcd():
-# возвращает наибольший общий делитель указанных целочисленных аргументов *integers.
-# в Python 3.9 добавлена поддержка произвольного количества аргументов
-    print(f'наибольший общий делитель {math.gcd(3886, 9048)=}')
-    print(f'наибольший общий делитель {math.gcd(16, 24)=}')
-    print(f'наибольший общий делитель {math.gcd(16, 24, 15)=}')
-    print(f'наибольший общий делитель {math.gcd(16, 24, 150)=}')
+def thetest_special_functions():
+    x = np.linspace(-3, 3, 60)
+    y_erf = np.linspace(-3, 3, 60)
+    y_erfc = np.linspace(-3, 3, 60)
+    x_gam = np.linspace(0.1, 3, 60)
+    y_gam = deepcopy(x_gam)
+    y_lgam = deepcopy(x_gam)
+    llen = x.size
+    for i in range(llen):
+        y_erf[i] = math.erf(x[i])
+        y_erfc[i] = math.erfc(x[i])
+        y_gam[i] = math.gamma(x_gam[i])
+        y_lgam[i] = math.lgamma(x_gam[i])
+    plt.plot(x,y_erf, label = 'erf')
+    plt.plot(x,y_erfc, label = 'erfc')
+    plt.plot(x_gam,y_gam, label = 'gamma')
+    plt.plot(x_gam,y_lgam, label = 'lgamma')
+    plt.grid()
+    plt.legend()
+    plt.show()
 
 
-def thetest_lcm():
-    # возвращает наименьшее общее кратное указанных целочисленных аргументов
-    # Наименьшее общее кратное для нескольких чисел — это наименьшее натуральное число,
-    # которое делится на каждое из этих чисел
-    # Непонятно
-    print(f'наименьшее общее кратное {math.lcm(16, 24, 15)=}')
-    print(f'наименьшее общее кратное {math.lcm(16, 24, 150)=}')
-    print(f'наименьшее общее кратное {math.lcm(16, 24, 80)=}')
-    print(f'наименьшее общее кратное {math.lcm(16, 64, 80)=}')
-    print(f'наименьшее общее кратное {math.lcm(16, 20)=}')
-    print(f'наименьшее общее кратное {math.lcm(20, 10)=}')
-
-
-def thetest_frexp_ldexp():
-    # Функция math.frexp() возвращает кортеж из двух чисел (m, e) таких что x == m*2**e.
-    # Число m принадлежит к типу float и всегда является таким, что 0.5 <= abs(m) < 1,
-    # даже для тех случаев, когда значением x является произвольная степень двойки.
-    # Число e всегда целое число int:
-    # Если x равен 0, то будет возвращено (0.0, 0)
-    # Функция math.ldexp() возвращает значение равное x*2**i,
-    # т.е. является обратной к функции math.frexp().
-    (m,e) = math.frexp(150)
-    print(f'мантисса и показатель степени 2 {math.frexp(150)=}  {math.ldexp(m, e)=}')
-    (m,e) = math.frexp(8)
-    print(f'мантисса и показатель степени 2 {math.frexp(8)=}  {math.ldexp(m, e)=}')
-
-def thetest_modf():
-    # Функция возвращает кортеж из двух чисел (f, w)
-    # где f это дробная, а w - целая часть числа x.
-    print(f'дробная и целая части числа {math.modf(8)=}')
-    print(f'дробная и целая части числа {math.modf(8.3)=}')
-
-def thetest_fsum():
-    # Функция math.fsum() возвращает точную сумму значений в итерируемой последовательности iterable.
-    # Если вам нужны точные арифметические операции с десятичными дробями,
-    # то воспользуйтесь модулем decimal.
-    lst = [.1, .1, .1, .1, .1, .1, .1, .1, .1, .1]
-    print(f'Сумма {sum(lst)=}')
-    print(f'Сумма {math.fsum(lst)=}')
-
-def thetest_isclose():
-    # Функция math.isclose() возвращает True если в пределах указанной точности,
-    # числа a и b близки настолько, что их можно считать равными.
-    # math.isclose(a, b, *, rel_tol=1e-09, abs_tol=0.0)
-    x = 7
-    y = 7.000000000000001
-    print(f'x == y = {x == y}')
-    print(f'{math.isclose(x, y)=}')
-
-def thetest_nextafter():
-    # возвращает следующее значение float после x по направлению к y.
-    # Если x равно y, то функция возвращает y.
-    dat9 = 9; dat10 = 10
-    for i in range(10):
-        dat = dat9 + i*0.1
-        print(f'{dat = }  {math.nextafter(dat, dat10)=}')
-
-def thetest_ulp():
-    # Функция math.isclose() возвращает значение наименьшего значащего бита числа float x.
-    # Или - машинный нуль для каждого числа
-    dat9 = 0.01
-    for i in range(10):
-        dat = dat9*(10**i)
-        print(f'{dat = }  {math.ulp(dat)=}')
 
 if __name__ == "__main__":
-    thetest_ulp()
+    thetest_special_functions()
