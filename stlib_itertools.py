@@ -28,11 +28,53 @@ def thetest_count():
     этот итератор также принимает параметр шага step.
     '''
     print('\nФункция = ', inspect.currentframe().f_code.co_name)
-    for i in itertools.count(10):
-        if i > 15:
+    print('\n1 Count')
+    for i in itertools.count(2.5,-5.5):
+        if i < -26:
             break
         else:
             print(i)
+
+    print('\n2 Count')
+    # https://habr.com/ru/companies/otus/articles/529356/
+    l1 = [5, 15, 25]
+    l2 = zip(itertools.count(), l1)
+    print(list(l2))
+    print(list(l2))
+
+    print('\n3 Count')
+    l3 = zip(itertools.count(), l1)
+    for i in l2:
+        print(i)
+    print(list(l3))
+
+    print('\n4 Count')
+    l1 = map(lambda x: x ** 2, itertools.count())
+    for i in l1:
+        if i > 50:
+            break
+        else:
+            print(i, end=" ")
+
+def thetest_isslice():
+    '''
+    islice - Получить срез итератора/генератора
+    itertools.islice(iterable, stop)
+    itertools.islice(iterable, start, stop[, step])
+    iterable - итератор,
+    start - int, начало среза,
+    stop - int, конец среза (не входит),
+    step - int, шаг среза.
+    https://docs-python.ru/standart-library/modul-itertools-python/funktsija-islice-modulja-itertools/
+    '''
+    print(list(itertools.islice('ABCDEFG', 2)))
+    # ['A', 'B']
+    print(list(itertools.islice('ABCDEFG', 2, 4)))
+    # ['C', 'D']
+    print(list(itertools.islice('ABCDEFG', 2, None)))
+    # ['C', 'D', 'E', 'F', 'G']
+    print(list(itertools.islice('ABCDEFG', 0, None, 2)))
+    # ['A', 'C', 'E', 'G']
 
 def thetest_count_with_slice():
     '''
@@ -48,8 +90,10 @@ def thetest_count_with_slice():
     islice()не поддерживает отрицательные значения для start , stop или Step .
     https://docs.python.org/3/library/itertools.html#itertools.islice
     '''
-    for i in itertools.islice(itertools.count(10), 25):
+    for i in itertools.islice(itertools.count(10), 15):
         print(i)
 
 if __name__ == "__main__":
-    thetest_count_with_slice()
+    # thetest_count()
+    # thetest_count_with_slice()
+    thetest_isslice()
