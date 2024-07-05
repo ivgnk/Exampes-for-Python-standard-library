@@ -12,7 +12,7 @@ import inspect
 import geopy # geopy is a Python client for several popular geocoding web services  https://geopy.readthedocs.io/en/stable/
 
 import stun  # https://pypi.org/project/pystun3-fix/
-import pymyip # https://ru.stackoverflow.com/questions/133137/Нужно-узнать-ip-адрес-своего-компьютера-в-интернете-в-python
+# import pymyip # https://ru.stackoverflow.com/questions/133137/Нужно-узнать-ip-адрес-своего-компьютера-в-интернете-в-python
 
 import time
 import timezonefinder
