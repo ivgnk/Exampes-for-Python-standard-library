@@ -1,0 +1,61 @@
+"""
+https://docs.python.org/3/library/statistics.html
+https://docs-python.ru/standart-library/modul-statistics-python/
+https://sky.pro/wiki/analytics/modul-statistics-v-python-obrabotka-dannyh-s-primerami-koda/
+https://digitology.tech/docs/python_3/library/statistics.html
+https://chelcenter.susu.ru/chel-center.ru/python-yfc/2020/02/11/opisatelnaya-statistika-na-python-chast-1/index.html
+
+https://www.geeksforgeeks.org/python/statistics-with-python/
+https://dzen.ru/a/aO9LrQwzC3tT_hVt
+"""
+
+import math
+import statistics
+import numpy as np
+import matplotlib.pyplot as plt
+
+lst=[1, 2, 3, 4, 5]
+print(f'{math.fsum(lst)=}')
+print(f'{statistics.mean(lst)=}')
+print(f'{statistics.fmean(lst)=}')
+print(f'{statistics.geometric_mean(lst)=}')
+# Ручное выисление среднего геометрического
+prd=math.prod(lst); print(f'{prd=}')
+g_m=math.pow(prd, 1/len(lst)); print(f'{g_m=}')
+print(f'{statistics.harmonic_mean(lst)=}')
+print(f'{statistics.median(lst)=}')
+print(f'{statistics.median([1, 3, 5, 7])=}')
+print(f'{statistics.median_low([1, 3, 5, 7])=}')
+print(f'{statistics.median_high([1, 3, 5, 7])=}')
+
+# Функция mode() модуля statistics возвращает единственный
+# наиболее распространенный элемент данных data из дискретных или номинальных данных.
+# Если в последовательности существует несколько значений с одинаковой частотой
+# распространения, то эта функция возвращает первый из них.
+print(f'{statistics.mode(lst)=}')
+print(f'{statistics.mode([1, 2, 2, 3, 3, 5])=}')
+print(f'{statistics.mode(["red", "blue", "blue", "red", "green", "red", "red"])=}')
+# Наиболее часто встречающиеся элементы в последовательности
+print(f'{statistics.multimode(lst)=}')
+print('стандартное отклонение генеральной совокупности')
+print(f'{statistics.pstdev(lst)=}');psd=statistics.pstdev(lst)
+print('дисперсия генеральной совокупности')
+print(f'{statistics.pvariance(lst)=} проверка {psd*psd=}')
+print('стандартное отклонение выборки')
+print(f'{statistics.stdev(lst)=}')
+print('дисперсия выборки'); sd=statistics.stdev(lst)
+print(f'{statistics.variance(lst)=} проверка {sd*sd=}')
+print('-----------')
+npa=np.array(lst)
+print(f'{type(npa)=}')
+print(f'{math.fsum(npa)=}')
+print(f'{statistics.mean(npa)=}')
+print(f'{statistics.fmean(npa)=}')
+print(f'{statistics.geometric_mean(npa)=}')
+print(f'{statistics.harmonic_mean(npa)=}')
+print('стандартное отклонение генеральной совокупности')
+print(f'{np.std(npa)=}')
+print('стандартное отклонение выборки')
+print(f'{np.std(npa,ddof=1)=}')
+
+
