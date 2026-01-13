@@ -17,9 +17,19 @@ import matplotlib.pyplot as plt
 lst=[1, 2, 3, 4, 5]
 print(f'{math.fsum(lst)=}')
 print(f'{statistics.mean(lst)=}')
+
+print('--------------------------')
+print('среднее для обыкновенной дроби')
+from fractions import Fraction as F
+print(f'{statistics.mean([F(3, 7), F(1, 21), F(5, 3), F(1, 3)])=}') # Fraction(13, 21)
+print(f'{statistics.fmean([F(3, 7), F(1, 21), F(5, 3), F(1, 3)])=}') # 0.6190476190476191
+print(f'{float(F(13, 21))=}')  # 0.6190476190476191
+print('--------------------------')
 print(f'{statistics.fmean(lst)=}')
 print(f'{statistics.geometric_mean(lst)=}')
-# Ручное выисление среднего геометрического
+
+
+# Ручное вычисление среднего геометрического
 prd=math.prod(lst); print(f'{prd=}')
 g_m=math.pow(prd, 1/len(lst)); print(f'{g_m=}')
 print(f'{statistics.harmonic_mean(lst)=}')
@@ -45,7 +55,8 @@ print('стандартное отклонение выборки')
 print(f'{statistics.stdev(lst)=}')
 print('дисперсия выборки'); sd=statistics.stdev(lst)
 print(f'{statistics.variance(lst)=} проверка {sd*sd=}')
-print('-----------')
+print()
+print('-----------Проверка для массивов numpy')
 npa=np.array(lst)
 print(f'{type(npa)=}')
 print(f'{math.fsum(npa)=}')
