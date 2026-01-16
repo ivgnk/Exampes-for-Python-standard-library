@@ -11,7 +11,10 @@ https://dzen.ru/a/aO9LrQwzC3tT_hVt
 
 import math
 import statistics
+from cProfile import label
+
 import numpy as np
+import random
 import matplotlib.pyplot as plt
 
 lst=[1, 2, 3, 4, 5]
@@ -27,6 +30,14 @@ print(f'{float(F(13, 21))=}')  # 0.6190476190476191
 print('--------------------------')
 print(f'{statistics.fmean(lst)=}')
 print(f'{statistics.geometric_mean(lst)=}')
+
+# Вычисляем среднее квадратическое значение
+rms = math.sqrt(statistics.mean(x**2 for x in lst))
+print(f'среднее квадратическое значение {rms=}')
+# Вычисляем среднее кубическое значение
+cubes = statistics.mean([x**3 for x in lst])
+mean_cubes = cubes**(1/3)
+print(f'среднее кубическое значение {mean_cubes=}')
 
 
 # Ручное вычисление среднего геометрического
@@ -68,5 +79,54 @@ print('стандартное отклонение генеральной сов
 print(f'{np.std(npa)=}')
 print('стандартное отклонение выборки')
 print(f'{np.std(npa,ddof=1)=}')
+
+print('-----------среднее для набора данных')
+x = np.arange(-10.0, 10.1, 0.2)
+y = - x + x**2- 0.1*x**3 # + x**2 - 0.1*x**3
+rnd = np.array([random.uniform(0,1) for i in range(len(x))])
+k=[0.8, 0.4, 0.2]
+ynew= np.empty(len(k), dtype=object)
+for i,d in enumerate(k):
+    noise1 = d*y*rnd
+    dat=y + noise1
+    print(f'{i=} {len(dat)=}')
+    ynew[i]=dat
+
+plt.title('Кривые с шумом')
+plt.plot(x, y, label='ini')
+print(f'{len(ynew)=}')
+print(f'{len(ynew[0])=}')
+for i, d in enumerate(ynew):
+    print(f'{i} {len(x)=} {len(d)=}')
+    plt.plot(x, d, label=f'ini+rnd*{k[i]}', ls='--')
+
+
+ynew2=[]
+for i,d in enumerate(ynew):
+    res=ynew[i]-1.001*min(ynew[i])
+    ynew2.append(res)
+
+for i, d in enumerate(ynew2):
+    plt.plot(x, d, label=f'Mod -> ini+rnd*{k[i]}', ls='--')
+
+plt.grid(); plt.legend()
+plt.show()
+
+sr=statistics.fmean(ynew2[1])
+gm=statistics.geometric_mean(ynew2[1])
+hm=statistics.harmonic_mean(ynew2[1])
+rms = math.sqrt(statistics.mean(x**2 for x in ynew2[1]))
+cms =  (statistics.mean(x**3 for x in ynew2[1]))**(1/3)
+
+plt.plot(x, ynew2[1], label=f'dat', ls='-')
+plt.axhline(y=sr, color='r',label='средняя')
+plt.axhline(y=gm, color='g',label='geometric_mean')
+plt.axhline(y=gm, color='k',label='harmonic_mean', ls='--')
+plt.axhline(y=rms, color='m',label='среднее квадратическое', ls='--')
+plt.axhline(y=cms, color='y',label='среднее кубическое', ls='--')
+plt.grid(); plt.legend()
+plt.show()
+
+
 
 
