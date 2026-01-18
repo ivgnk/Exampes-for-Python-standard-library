@@ -10,53 +10,12 @@ https://dzen.ru/a/aO9LrQwzC3tT_hVt
 """
 
 import math
-import statistics
-
-import numpy as np
 import random
+import statistics
+import numpy as np
 import matplotlib.pyplot as plt
 
 lst=[1, 2, 3, 4, 5]
-print(f'{math.fsum(lst)=}')
-print(f'{statistics.mean(lst)=}')
-
-print('--------------------------')
-print('среднее для обыкновенной дроби')
-from fractions import Fraction as F
-print(f'{statistics.mean([F(3, 7), F(1, 21), F(5, 3), F(1, 3)])=}') # Fraction(13, 21)
-print(f'{statistics.fmean([F(3, 7), F(1, 21), F(5, 3), F(1, 3)])=}') # 0.6190476190476191
-print(f'{float(F(13, 21))=}')  # 0.6190476190476191
-print('--------------------------')
-print(f'{statistics.fmean(lst)=}')
-print(f'{statistics.geometric_mean(lst)=}')
-
-# Вычисляем среднее квадратическое значение
-rms = math.sqrt(statistics.mean(x**2 for x in lst))
-print(f'среднее квадратическое значение {rms=}')
-# Вычисляем среднее кубическое значение
-cubes = statistics.mean([x**3 for x in lst])
-mean_cubes = cubes**(1/3)
-print(f'среднее кубическое значение {mean_cubes=}')
-
-
-# Ручное вычисление среднего геометрического
-prd=math.prod(lst); print(f'{prd=}')
-g_m=math.pow(prd, 1/len(lst)); print(f'{g_m=}')
-print(f'{statistics.harmonic_mean(lst)=}')
-print(f'{statistics.median(lst)=}')
-print(f'{statistics.median([1, 3, 5, 7])=}')
-print(f'{statistics.median_low([1, 3, 5, 7])=}')
-print(f'{statistics.median_high([1, 3, 5, 7])=}')
-
-# Функция mode() модуля statistics возвращает единственный
-# наиболее распространенный элемент данных data из дискретных или номинальных данных.
-# Если в последовательности существует несколько значений с одинаковой частотой
-# распространения, то эта функция возвращает первый из них.
-print(f'{statistics.mode(lst)=}')
-print(f'{statistics.mode([1, 2, 2, 3, 3, 5])=}')
-print(f'{statistics.mode(["red", "blue", "blue", "red", "green", "red", "red"])=}')
-# Наиболее часто встречающиеся элементы в последовательности
-print(f'{statistics.multimode(lst)=}')
 print('стандартное отклонение генеральной совокупности')
 print(f'{statistics.pstdev(lst)=}');psd=statistics.pstdev(lst)
 print('дисперсия генеральной совокупности')
@@ -69,7 +28,6 @@ print()
 print('-----------Проверка для массивов numpy')
 npa=np.array(lst)
 print(f'{type(npa)=}')
-print(f'{math.fsum(npa)=}')
 print(f'{statistics.mean(npa)=}')
 print(f'{statistics.fmean(npa)=}')
 print(f'{statistics.geometric_mean(npa)=}')
